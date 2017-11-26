@@ -1,3 +1,39 @@
+buildscript {
+    repositories {
+        maven {
+            name 'JFrog OSS snapshot repo'
+            url  'https://oss.jfrog.org/oss-snapshot-local/'
+        }
+        jcenter()
+    }
+ 
+    dependencies {
+        classpath 'me.champeau.gradle:antlr4-gradle-plugin:0.1.1-SNAPSHOT'
+    }
+}
+ 
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'me.champeau.gradle.antlr4'
+
+antlr4 {
+    source = file('src/main/antlr4')
+    output = file('build/generated-src/parser')
+    extraArgs = ['-visitor', '-package', 'com.almondbranch.command_line_parser']
+}
+ 
+compileJava.dependsOn antlr4
+ 
+sourceSets.main.java.srcDirs += antlr4.output
+ 
+configurations {
+    compile.extendsFrom antlr4
+}
+
 task wrapper(type: Wrapper) {
 	gradleVersion = '4.3.1'
 }
