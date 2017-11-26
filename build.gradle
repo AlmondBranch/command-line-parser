@@ -20,6 +20,10 @@ repositories {
 apply plugin: 'java'
 apply plugin: 'me.champeau.gradle.antlr4'
 
+dependencies {
+    compile 'org.antlr:antlr4:4.7'
+}
+
 antlr4 {
     source = file('src/main/antlr4')
     output = file('build/generated-src/parser')
