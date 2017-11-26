@@ -13,6 +13,36 @@ public class CmdArgsReaderTests {
 		List<String> args = CmdArgsReader.read("arg1 arg2");
 		assertThat(args, is(Arrays.asList("arg1", "arg2")));
 	}
+
+	@Test
+	public void Reads_Space_As_Part_Of_Double_Quoted_Argument() throws Exception {
+		List<String> args = CmdArgsReader.read("\"arg1 arg2\"");
+		assertThat(args, is(Arrays.asList("\"arg1 arg2\"")));
+	}
+
+	@Test
+	public void Reads_Space_As_Part_Of_Single_Quoted_Argument() throws Exception {
+		List<String> args = CmdArgsReader.read("'arg1 arg2'");
+		assertThat(args, is(Arrays.asList("'arg1 arg2'")));
+	}
+
+        @Test
+	public void Reads_Space_As_Part_Of_Argument_When_It_Is_Escaped_With_A_Backslash() throws Exception {
+		List<String> args = CmdArgsReader.read("arg1\\ arg2");
+		assertThat(args, is(Arrays.asList("arg1\\ arg2")));
+	}
+
+        @Test
+	public void Reads_Single_Quote_Inside_Double_Quoted_Argument() throws Exception {
+		List<String> args = CmdArgsReader.read("\"'arg\"");
+		assertThat(args, is(Arrays.asList("\"'arg\"")));
+	}
+ 
+        @Test
+	public void Reads_Double_Quote_Inside_Single_Quoted_Argument() throws Exception {
+		List<String> args = CmdArgsReader.read("'\"arg'");
+		assertThat(args, is(Arrays.asList("'\"arg'")));
+	}
 }
 
 
