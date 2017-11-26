@@ -22,6 +22,7 @@ apply plugin: 'me.champeau.gradle.antlr4'
 
 dependencies {
     compile 'org.antlr:antlr4:4.7'
+    testCompile "junit:junit:4.12"
 }
 
 antlr4 {
