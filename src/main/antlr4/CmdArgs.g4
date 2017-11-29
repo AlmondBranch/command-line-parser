@@ -1,6 +1,6 @@
 grammar CmdArgs;
 
-input     : entry (delimiter entry)* EOF;
+input     : entry (delimiter? entry)* EOF;
 delimiter : SPACE+;
 entry     : (REGULAR_ARG | SINGLE_QUOTED_ARG | DOUBLE_QUOTED_ARG);
 
