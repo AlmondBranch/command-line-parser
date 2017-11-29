@@ -5,10 +5,10 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.*;
 
 public class CmdArgsReader {
-    public static List<String> read(String cmdLineArgs) throws Exception, RecognitionException {
+    public static String[] read(String cmdLineArgs) throws Exception, RecognitionException {
 	String trimmedValue = cmdLineArgs.trim();
 	if (trimmedValue == "")
-		return new ArrayList<String>();
+		return new String[0];
 
         CmdArgsLexer lexer = new CmdArgsLexer(CharStreams.fromString(trimmedValue));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -33,7 +33,7 @@ public class CmdArgsReader {
 	else
 	{
 		CmdArgsVisitorImpl visitor = new CmdArgsVisitorImpl();
-		return visitor.visit(parseTree);
+		return visitor.visit(parseTree).stream().toArray(String[]::new);
 	}
     }
 

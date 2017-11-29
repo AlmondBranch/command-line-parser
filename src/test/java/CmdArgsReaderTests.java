@@ -10,92 +10,92 @@ import static org.hamcrest.CoreMatchers.*;
 public class CmdArgsReaderTests {
 	@Test
 	public void Recognizes_Two_Simple_Arguments_Separated_By_A_Single_Space() throws Exception {
-		List<String> args = CmdArgsReader.read("arg1 arg2");
-		assertThat(args, is(Arrays.asList("arg1", "arg2")));
+		String[] args = CmdArgsReader.read("arg1 arg2");
+		assertThat(args, is(new String[] { "arg1", "arg2" }));
 	}
 
 	@Test
 	public void Recognizes_Two_Simple_Arguments_Separated_By_A_Two_Spaces() throws Exception {
-		List<String> args = CmdArgsReader.read("arg1  arg2");
-		assertThat(args, is(Arrays.asList("arg1", "arg2")));
+		String[] args = CmdArgsReader.read("arg1  arg2");
+		assertThat(args, is(new String[] { "arg1", "arg2" }));
 	}
 
 	@Test
 	public void Reads_Space_As_Part_Of_Double_Quoted_Argument() throws Exception {
-		List<String> args = CmdArgsReader.read("\"arg1 arg2\"");
-		assertThat(args, is(Arrays.asList("arg1 arg2")));
+		String[] args = CmdArgsReader.read("\"arg1 arg2\"");
+		assertThat(args, is(new String[] { "arg1 arg2" }));
 	}
 
 	@Test
 	public void Reads_Space_As_Part_Of_Single_Quoted_Argument() throws Exception {
-		List<String> args = CmdArgsReader.read("'arg1 arg2'");
-		assertThat(args, is(Arrays.asList("arg1 arg2")));
+		String[] args = CmdArgsReader.read("'arg1 arg2'");
+		assertThat(args, is(new String[] { "arg1 arg2" }));
 	}
 
         @Test
 	public void Reads_Space_As_Part_Of_Argument_When_It_Is_Escaped_With_A_Backslash() throws Exception {
-		List<String> args = CmdArgsReader.read("arg1\\ arg2");
-		assertThat(args, is(Arrays.asList("arg1 arg2")));
+		String[] args = CmdArgsReader.read("arg1\\ arg2");
+		assertThat(args, is(new String[] { "arg1 arg2" }));
 	}
 
         @Test
 	public void Reads_Single_Quote_Inside_Double_Quoted_Argument() throws Exception {
-		List<String> args = CmdArgsReader.read("\"'arg\"");
-		assertThat(args, is(Arrays.asList("'arg")));
+		String[] args = CmdArgsReader.read("\"'arg\"");
+		assertThat(args, is(new String[] { "'arg" }));
 	}
  
         @Test
 	public void Reads_Double_Quote_Inside_Single_Quoted_Argument() throws Exception {
-		List<String> args = CmdArgsReader.read("'\"arg'");
-		assertThat(args, is(Arrays.asList("\"arg")));
+		String[] args = CmdArgsReader.read("'\"arg'");
+		assertThat(args, is(new String[] { "\"arg" }));
 	}
 
 	@Test
 	public void Reads_Escaped_Double_Quote_Inside_Double_Quoted_Argument() throws Exception {
-		List<String> args = CmdArgsReader.read("\"\\\"arg\"");
-		assertThat(args, is(Arrays.asList("\"arg")));
+		String[] args = CmdArgsReader.read("\"\\\"arg\"");
+		assertThat(args, is(new String[] { "\"arg" }));
 	}
 
 	@Test
 	public void Leaves_Escaped_Space_Inside_Double_Quoted_Argument_Alone() throws Exception {
-		List<String> args = CmdArgsReader.read("\"part1\\ part2\"");
-		assertThat(args, is(Arrays.asList("part1\\ part2")));
+		String[] args = CmdArgsReader.read("\"part1\\ part2\"");
+		assertThat(args, is(new String[] { "part1\\ part2" }));
 	}
 
 	@Test
 	public void Escaped_Single_Quote_Is_Not_Allowed_In_Singled_Quoted_Argument() throws Exception {
-		List<String> args = CmdArgsReader.read("'\\'arg'");
+		String[] args = CmdArgsReader.read("'\\'arg'");
 		assertThat(args, is(nullValue()));
 	}
 
 	@Test
 	public void Double_Quoted_Scope_Inside_Argument_Is_Allowed() throws Exception {
-		List<String> args = CmdArgsReader.read("prefix\"double_quoted_scope\"");
-		assertThat(args, is(Arrays.asList("prefixdouble_quoted_scope")));
+		String[] args = CmdArgsReader.read("prefix\"double_quoted_scope\"");
+		assertThat(args, is(new String[] { "prefixdouble_quoted_scope" }));
 	}
 
 	@Test
 	public void Single_Quoted_Scope_Inside_Argument_Is_Allowed() throws Exception {
-		List<String> args = CmdArgsReader.read("prefix'single_quoted_scope'");
-		assertThat(args, is(Arrays.asList("prefixsingle_quoted_scope")));
+		String[] args = CmdArgsReader.read("prefix'single_quoted_scope'");
+		assertThat(args, is(new String[] { "prefixsingle_quoted_scope" }));
 	}
 
 	@Test
 	public void One_Double_Quote_Inside_Argument_Is_Not_Matched() throws Exception {
-		List<String> args = CmdArgsReader.read("ar\"g");
+		String[] args = CmdArgsReader.read("ar\"g");
 		assertThat(args, is(nullValue()));
 	}
 
 	@Test
 	public void One_Single_Quote_Inside_Argument_Is_Not_Matched() throws Exception {
-		List<String> args = CmdArgsReader.read("ar'g");
+		String[] args = CmdArgsReader.read("ar'g");
 		assertThat(args, is(nullValue()));
 	}
 
 	@Test
 	public void Empty_String_Returns_An_Empty_List() throws Exception {
-		List<String> args = CmdArgsReader.read("");
-		assertEquals(0, args.size());
+		String[] args = CmdArgsReader.read("");
+		assertEquals(0, args.length);
 	}
 }
 
