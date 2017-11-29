@@ -28,7 +28,7 @@ version = "1.0.0"
 
 dependencies {
     compile 'org.antlr:antlr4:4.7'
-    testCompile "junit:junit:4.12"
+    testCompile "junit:junit:4.12", "org.junit.jupiter:junit-jupiter-api:5.1.0-M1"
 }
 
 antlr4 {
@@ -55,13 +55,17 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
+test {
+    testLogging.showStandardStreams = true
+}
+
 artifacts {
     archives javadocJar, sourcesJar
 }
 
-signing {
+/*signing {
     sign configurations.archives
-}
+}*/
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '4.3.1'
