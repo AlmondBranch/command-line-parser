@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CmdArgsReader {
     public static List<String> read(String cmdLineArgs) throws Exception {
-        CmdArgsLexer lexer = new CmdArgsLexer(CharStreams.fromString(cmdLineArgs));
+        CmdArgsLexer lexer = new CmdArgsLexer(CharStreams.fromString(cmdLineArgs.trim()));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CmdArgsParser parser = new CmdArgsParser(tokens);
         ParseTree parseTree = parser.input();
