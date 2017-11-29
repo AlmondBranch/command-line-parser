@@ -55,6 +55,12 @@ public class CmdArgsReaderTests {
 		List<String> args = CmdArgsReader.read("\"\\\"arg\"");
 		assertThat(args, is(Arrays.asList("\"arg")));
 	}
+
+	@Test
+	public void Leaves_Escaped_Space_Inside_Double_Quoted_Argument_Alone() throws Exception {
+		List<String> args = CmdArgsReader.read("\"part1\\ part2\"");
+		assertThat(args, is(Arrays.asList("part1\\ part2")));
+	}
 }
 
 
