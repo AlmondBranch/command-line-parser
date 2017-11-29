@@ -1,4 +1,4 @@
-package com.almondbranch.command_line_parser;
+package com.github.almondbranch.command_line_parser;
 
 import static org.junit.Assert.*;
 import org.junit.*;

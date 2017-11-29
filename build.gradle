@@ -19,6 +19,12 @@ repositories {
 
 apply plugin: 'java'
 apply plugin: 'me.champeau.gradle.antlr4'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = "com.github.almondbranch.command-line-parser"
+archivesBaseName = "command-line-parser"
+version = "1.0.0"
 
 dependencies {
     compile 'org.antlr:antlr4:4.7'
@@ -28,7 +34,7 @@ dependencies {
 antlr4 {
     source = file('src/main/antlr4')
     output = file('build/generated-src/parser')
-    extraArgs = ['-visitor', '-package', 'com.almondbranch.command_line_parser']
+    extraArgs = ['-visitor', '-package', 'com.github.almondbranch.command_line_parser']
 }
  
 compileJava.dependsOn antlr4
@@ -39,6 +45,26 @@ configurations {
     compile.extendsFrom antlr4
 }
 
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
 task wrapper(type: Wrapper) {
 	gradleVersion = '4.3.1'
 }
+
+

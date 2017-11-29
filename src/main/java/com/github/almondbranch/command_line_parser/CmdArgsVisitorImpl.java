@@ -1,4 +1,4 @@
-package com.almondbranch.command_line_parser;
+package com.github.almondbranch.command_line_parser;
 
 import java.util.*;
 import java.util.ArrayList;

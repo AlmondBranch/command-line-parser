@@ -1,4 +1,4 @@
-package com.almondbranch.command_line_parser;
+package com.github.almondbranch.command_line_parser;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
