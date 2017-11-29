@@ -61,6 +61,24 @@ public class CmdArgsReaderTests {
 		List<String> args = CmdArgsReader.read("\"part1\\ part2\"");
 		assertThat(args, is(Arrays.asList("part1\\ part2")));
 	}
+
+	@Test
+	public void Escaped_Single_Quote_Is_Not_Allowed_In_Singled_Quoted_Argument() throws Exception {
+		List<String> args = CmdArgsReader.read("'\\'arg'");
+		assertThat(args, is(nullValue()));
+	}
+
+	@Test
+	public void Double_Quoted_Scope_Inside_Argument_Is_Allowed() throws Exception {
+		List<String> args = CmdArgsReader.read("prefix\"double_quoted_scope\"");
+		assertThat(args, is(Arrays.asList("prefixdouble_quoted_scope")));
+	}
+
+	@Test
+	public void Single_Quoted_Scope_Inside_Argument_Is_Allowed() throws Exception {
+		List<String> args = CmdArgsReader.read("prefix'single_quoted_scope'");
+		assertThat(args, is(Arrays.asList("prefixsingle_quoted_scope")));
+	}
 }
 
 
