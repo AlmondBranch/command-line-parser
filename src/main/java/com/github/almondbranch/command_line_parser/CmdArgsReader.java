@@ -6,7 +6,11 @@ import java.util.*;
 
 public class CmdArgsReader {
     public static List<String> read(String cmdLineArgs) throws Exception, RecognitionException {
-        CmdArgsLexer lexer = new CmdArgsLexer(CharStreams.fromString(cmdLineArgs.trim()));
+	String trimmedValue = cmdLineArgs.trim();
+	if (trimmedValue == "")
+		return new ArrayList<String>();
+
+        CmdArgsLexer lexer = new CmdArgsLexer(CharStreams.fromString(trimmedValue));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         CmdArgsParser parser = new CmdArgsParser(tokens);

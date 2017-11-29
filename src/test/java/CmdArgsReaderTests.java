@@ -91,6 +91,12 @@ public class CmdArgsReaderTests {
 		List<String> args = CmdArgsReader.read("ar'g");
 		assertThat(args, is(nullValue()));
 	}
+
+	@Test
+	public void Empty_String_Returns_An_Empty_List() throws Exception {
+		List<String> args = CmdArgsReader.read("");
+		assertEquals(0, args.size());
+	}
 }
 
 
