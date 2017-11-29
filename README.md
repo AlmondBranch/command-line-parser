@@ -18,7 +18,7 @@ public void CallExe()
 {
   //TO DO - Make sure to reference the JAR file for the exe from your build script as a dependency
 
-  List<String> args = CmdArgsReader.read("arg1 arg2 arg3");
+  String[] args = CmdArgsReader.read("arg1 arg2 arg3");
   int returnValue = exeMainClass.main(args);
 }
 ```
