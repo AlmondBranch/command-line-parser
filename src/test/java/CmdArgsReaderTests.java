@@ -79,6 +79,18 @@ public class CmdArgsReaderTests {
 		List<String> args = CmdArgsReader.read("prefix'single_quoted_scope'");
 		assertThat(args, is(Arrays.asList("prefixsingle_quoted_scope")));
 	}
+
+	@Test
+	public void One_Double_Quote_Inside_Argument_Is_Not_Matched() throws Exception {
+		List<String> args = CmdArgsReader.read("ar\"g");
+		assertThat(args, is(nullValue()));
+	}
+
+	@Test
+	public void One_Single_Quote_Inside_Argument_Is_Not_Matched() throws Exception {
+		List<String> args = CmdArgsReader.read("ar'g");
+		assertThat(args, is(nullValue()));
+	}
 }
 
 
