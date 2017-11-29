@@ -8,8 +8,6 @@ public class CmdArgsVisitorImpl extends AbstractParseTreeVisitor<List<String>> i
 	private List<String> _matches;
 	private List<String> _currentMatchPieces;
 
-	private final List<Character> QUOTE_CHARS = Arrays.asList(new Character[] { '\'', '"' });
-
 	public List<String> visitInput(CmdArgsParser.InputContext ctx) {
  		_matches = new ArrayList<String>();
 		_currentMatchPieces = new ArrayList<String>();
@@ -30,7 +28,13 @@ public class CmdArgsVisitorImpl extends AbstractParseTreeVisitor<List<String>> i
 
 	public List<String> visitEntry(CmdArgsParser.EntryContext ctx) {
 		String entryText = ctx.getText();
-		if (QUOTE_CHARS.contains(entryText.charAt(0)))
+
+		if (entryText.charAt(0) == '"')
+		{
+			entryText = entryText.substring(1, entryText.length() - 1);
+			entryText = entryText.replaceAll("\\\\\"", "\"");
+		}
+		else if (entryText.charAt(0) == '\'')
 			entryText = entryText.substring(1, entryText.length() - 1);
 		else
 			entryText = entryText.replaceAll("\\\\ ", " ");

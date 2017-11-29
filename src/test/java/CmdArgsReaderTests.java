@@ -9,8 +9,14 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class CmdArgsReaderTests {
 	@Test
-	public void Separates_Two_Simple_Arguments() throws Exception {
+	public void Recognizes_Two_Simple_Arguments_Separated_By_A_Single_Space() throws Exception {
 		List<String> args = CmdArgsReader.read("arg1 arg2");
+		assertThat(args, is(Arrays.asList("arg1", "arg2")));
+	}
+
+	@Test
+	public void Recognizes_Two_Simple_Arguments_Separated_By_A_Two_Spaces() throws Exception {
+		List<String> args = CmdArgsReader.read("arg1  arg2");
 		assertThat(args, is(Arrays.asList("arg1", "arg2")));
 	}
 
@@ -41,6 +47,12 @@ public class CmdArgsReaderTests {
         @Test
 	public void Reads_Double_Quote_Inside_Single_Quoted_Argument() throws Exception {
 		List<String> args = CmdArgsReader.read("'\"arg'");
+		assertThat(args, is(Arrays.asList("\"arg")));
+	}
+
+	@Test
+	public void Reads_Escaped_Double_Quote_Inside_Double_Quoted_Argument() throws Exception {
+		List<String> args = CmdArgsReader.read("\"\\\"arg\"");
 		assertThat(args, is(Arrays.asList("\"arg")));
 	}
 }
