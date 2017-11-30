@@ -72,8 +72,8 @@ signing {
 }
 
 //Add dummy values for the follow two parameters so that the automated build won't complain about them not existing
-ossrhUsername=willBeReplacedWithValueFromGradleProperties
-ossrhPassword=willBeReplacedWithValueFromGradleProperties
+ossrhUsername = "willBeReplacedWithValueFromGradleProperties"
+ossrhPassword = "willBeReplacedWithValueFromGradleProperties"
 
 uploadArchives {
   repositories {
