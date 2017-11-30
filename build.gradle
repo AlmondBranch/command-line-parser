@@ -29,7 +29,7 @@ apply plugin: 'signing'
 
 group = "com.github.almondbranch.command-line-parser"
 archivesBaseName = "command-line-parser"
-version = "1.0.0"
+version = "1.1.0"
 
 dependencies {
     compile 'org.antlr:antlr4:4.7'
@@ -79,15 +79,17 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-if (project.signing.hasProperty("keyId"))
+//Make sure only to add deployment related tasks if credentials are present
+def isRunningWithCredentials = hasProperty("ossrhUsername") && hasProperty("ossrhPassword")
+
+if (isRunningWithCredentials)
 {
   signing {
       sign configurations.archives
   }
 }
 
-//Only add the uploadArchives task if the ossrh user name and password are available. This avoids errors when building on the continuous integration server
-if (project.hasProperty("ossrhUserName") && project.hasProperty("ossrhPassword"))
+if (isRunningWithCredentials)
 {
   uploadArchives {
     repositories {
