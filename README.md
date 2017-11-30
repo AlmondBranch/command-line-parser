@@ -1,4 +1,7 @@
-# command-line-parser
+command-line-parser
+===================
+
+[![Build Status](https://travis-ci.org/AlmondBranch/command-line-parser.svg?branch=master)](https://travis-ci.org/AlmondBranch/command-line-parser)
 
 Parses a String containing command line arguments into a collection of the individual formatted arguments that should be passed to an executables main method. Without this package there isn't a clear and easy way to access the parser that a command line would use to break up the command line arguments into the final array which a program's main method takes as an argument.
 
