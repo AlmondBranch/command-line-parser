@@ -67,8 +67,11 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-signing {
-    sign configurations.archives
+if (project.hasProperty("signing"))
+{
+  signing {
+      sign configurations.archives
+  }
 }
 
 //Only add the uploadArchives task if the ossrh user name and password are available. This avoids errors when building on the continuous integration server
