@@ -3,7 +3,7 @@ command-line-parser
 
 [![Build Status](https://travis-ci.org/AlmondBranch/command-line-parser.svg?branch=master)](https://travis-ci.org/AlmondBranch/command-line-parser)
 [![Coverage Status](https://coveralls.io/repos/github/AlmondBranch/command-line-parser/badge.svg?branch=master)](https://coveralls.io/github/AlmondBranch/command-line-parser?branch=master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.almondbranch/command-line-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.almondbranch/command-line-parser)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.almondbranch.command-line-parser/command-line-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.almondbranch.command-line-parser/command-line-parser)
 
 Parses a String containing command line arguments into a collection of the individual formatted arguments that should be passed to an executables main method. Without this package there isn't a clear and easy way to access the parser that a command line would use to break up the command line arguments into the final array which a program's main method takes as an argument.
 
