@@ -67,7 +67,7 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-if (project.hasProperty("signing"))
+if (project.signing.hasProperty("keyId"))
 {
   signing {
       sign configurations.archives
