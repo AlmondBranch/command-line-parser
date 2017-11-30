@@ -15,42 +15,12 @@ public class CmdArgsReader {
 
         CmdArgsParser parser = new CmdArgsParser(tokens);
 
-	//Make sure to collect all errors encountered while creating the parse tree
-	List<String> syntaxExceptions = new ArrayList<String>();
-	parser.addErrorListener(new TrackSyntaxErrorListener(syntaxExceptions));
-
-	//This might be an Antlr bug, but sometimes when notifying error listeners an exception
-	//is thrown so watch out for that...
+	//Just return null for now if the input couldn't be parsed. This should be reconsidered later...
 	ParseTree parseTree = null;	
 	try { parseTree = parser.input(); }
-	catch (Exception ex) { syntaxExceptions.add(ex.getMessage()); }
+	catch (Exception ex) { return null; }
 
-	if (syntaxExceptions.size() > 0)
-	{
-		//A returned null indicates that the parse failed. Eventually the error information should be returned to the caller for it to see.
-		return null;
-	}
-	else
-	{
-		CmdArgsVisitorImpl visitor = new CmdArgsVisitorImpl();
-		return visitor.visit(parseTree).stream().toArray(String[]::new);
-	}
-    }
-
-    private static class TrackSyntaxErrorListener extends BaseErrorListener {
-	private final List<String> _syntaxExceptions;
-
-	public TrackSyntaxErrorListener(List<String> syntaxExceptions)
-	{
-		_syntaxExceptions = syntaxExceptions;
-	}
-
-	@Override
-	public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
-							int line, int charPositionInLine,
-							String msg, RecognitionException e)
-	{
-		_syntaxExceptions.add("line " + line + ":" + charPositionInLine + " " + msg);
-	}
+	CmdArgsVisitorImpl visitor = new CmdArgsVisitorImpl();
+        return visitor.visit(parseTree).stream().toArray(String[]::new);
     }
 }
