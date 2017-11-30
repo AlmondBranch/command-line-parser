@@ -31,6 +31,10 @@ dependencies {
     testCompile "junit:junit:4.12", "org.junit.jupiter:junit-jupiter-api:5.1.0-M1"
 }
 
+task wrapper(type: Wrapper) {
+	gradleVersion = '4.3.1'
+}
+
 antlr4 {
     source = file('src/main/antlr4')
     output = file('build/generated-src/parser')
@@ -45,6 +49,10 @@ configurations {
     compile.extendsFrom antlr4
 }
 
+test {
+    testLogging.showStandardStreams = true
+}
+
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
@@ -55,20 +63,57 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-test {
-    testLogging.showStandardStreams = true
-}
-
 artifacts {
     archives javadocJar, sourcesJar
 }
 
-/*signing {
+signing {
     sign configurations.archives
-}*/
+}
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '4.3.1'
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'command-line-parser'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'Allows a direct call to a main(String[] args) method using an unparsed string containing the arguments.'
+        url 'https://github.com/AlmondBranch/command-line-parser'
+
+        scm {
+          connection 'scm:git:git://github.com/AlmondBranch/command-line-parser.git'
+          developerConnection 'scm:git:ssh://github.com/AlmondBranch/command-line-parser.git'
+          url 'https://github.com/AlmondBranch/command-line-parser.git'
+        }
+
+        licenses {
+          license {
+            name 'MIT License'
+            url 'https://opensource.org/licenses/MIT'
+          }
+        }
+
+        developers {
+          developer {
+            name 'Scott Haney'
+            organization 'AlmondBranch'
+            email 'emailalmondbranch@gmail.com'
+          }
+        }
+      }
+    }
+  }
 }
 
 
