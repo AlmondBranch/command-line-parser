@@ -99,7 +99,7 @@ public class CmdArgsReaderTests {
 	}
 
         @Test
-        public void Test_That_Constructor_Works_To_Make_Code_Coverage_Tool_Happy {
+        public void Test_That_Constructor_Works_To_Make_Code_Coverage_Tool_Happy() {
 		CmdArgsReader cmdArgsReader = new CmdArgsReader();
         }
 }
