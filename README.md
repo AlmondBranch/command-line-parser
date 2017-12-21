@@ -30,3 +30,6 @@ public void CallExe()
 
 ## Parser Details
 The unit tests serve as a good documentation for the cases that this parser covers. These tests were derived by seeing how the bash shell parses and formats the arguments that it sends to a program. It is thought that the current parser either exactly or closely matches the behavior that a shell or command prompt would have.
+
+## Example Usage
+The [lein-antlr plugin](https://github.com/AlmondBranch/lein-antlr) uses this code to directly call a main method with a single string containing all command line arguments rather than resorting to calling the program in a separate process.
